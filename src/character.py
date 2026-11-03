@@ -1,10 +1,13 @@
 # Object-oriented game simulator
 # Turid Torheim, NMBU, 2026
 
+from item import Weapon
+
+
 class Character:
     """Represents a character in the RPG"""
 
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10) -> None:
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon = None) -> None:
         """
         Initialise the Character
 
@@ -17,9 +20,16 @@ class Character:
         self._hp = hp_max  # Note: _hp indicated private attribute
         self.hp_max = hp_max
         self.damage = damage
+        self.weapon = weapon
 
-    def take_damage(self, damage):
+
+    def take_damage(self, target) -> None:
         """Modifies the hp of the character, lowering it by the damage amount, it cant go negative"""
+        if self.weapon is not None:
+            damage = self.weapon.roll_damage()
+        else:
+            damage = self.damage
+
         self._hp -= damage
         self._hp = max(self._hp, 0)
 
