@@ -18,9 +18,20 @@ class Character:
         self.hp_max = hp_max
         self.damage = damage
 
+    def take_damage(self, damage):
+        """Modifies the hp of the character, lowering it by the damage amount, it cant go negative"""
+        self._hp -= damage
+        self._hp = max(self._hp, 0)
+
+    def heal(self, heal_amount):
+        """Modifies the hp of the character, increasing it by the heal_amount, it cant go above the max_hp"""
+        self._hp += heal_amount
+        self._hp = min(self._hp, self.hp_max)
+
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
-        target._hp -= self.damage
+        target._hp = self.take_damage(target, self.damage)
+        #target._hp -= self.damage
         target._hp = max(target._hp, 0)  # Target hp cannot end up lower than 0
 
     def introduce(self) -> None:
