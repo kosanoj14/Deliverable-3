@@ -30,9 +30,7 @@ class Character:
 
     def attack(self, target) -> None:
         """Attack and deal damage to target character"""
-        target._hp = self.take_damage(target, self.damage)
-        #target._hp -= self.damage
-        target._hp = max(target._hp, 0)  # Target hp cannot end up lower than 0
+        target.take_damage(self.damage)
 
     def introduce(self) -> None:
         """Creates string that introduces character"""
@@ -50,3 +48,8 @@ class Character:
     def hp(self) -> int:
         """Public read-only property to inspect HP without allowing direct, unsafe edits."""
         return self._hp
+
+    @property
+    def is_alive(self) -> bool:
+        """read-only property that checks if the character is alive(True) or dead(False)"""
+        return self._hp > 0
