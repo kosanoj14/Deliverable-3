@@ -15,6 +15,11 @@ class Weapon:
         return self.damage_dice.roll()
 
 
+    def __repr__(self) -> str:
+        """Representation of the weapon"""
+        return (f"Weapon(name={self.name})")
+
+
 
 # Weapons
 sword = Weapon("Sword", Dice(8))
