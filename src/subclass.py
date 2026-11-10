@@ -19,10 +19,10 @@ class Warrior(Character):
         """Reduces incoming damage by armour value before applying it"""
         effective_damage = max(damage - self.armour, 0)
         super().take_damage(effective_damage)
-
-    def class_text(self) -> str:
+    
+    def __repr__(self) -> str:
         """Returns class info formatted"""
-        return f"Subclass: Warrior. {super().__str__()}"
+        return f"Subclass: Warrior. {super().__repr__()}"
 
     @property
     def armour(self) -> int:
@@ -50,9 +50,9 @@ class Mage(Character):
             self._mana = min(self._mana + 5, self.max_mana)
             target.take_damage(base_damage)
 
-    def class_text(self) -> str:
+    def __repr__(self) -> str:
         """Returns class info formatted"""
-        return f"Subclass: Mage. {super().__str__()}"
+        return f"Subclass: Mage. {super().__repr__()}"
 
     @property
     def mana(self) -> int:
