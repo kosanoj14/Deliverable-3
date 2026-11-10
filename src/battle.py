@@ -18,9 +18,8 @@ class Battle:
 
         if self.enemy.is_alive:
             print(f"{self.enemy.name} won!!!")
-            return self.enemy.name
-
-        print(f"{self.hero.name} won!!!")
+        else:
+            print(f"{self.hero.name} won!!!")
         
 
 
