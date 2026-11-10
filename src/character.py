@@ -2,6 +2,7 @@
 # Turid Torheim, NMBU, 2026
 from item import Weapon
 
+
 class Character:
     """Represents a character in the RPG"""
 
