@@ -20,6 +20,8 @@ class Battle:
         print(f"{winner.name} won the battle!!!")
         return winner.name
 
+        print(f"{self.hero.name} won!!!")
+        
 
 
 enemy = Warrior("Jon", weapon=potato_bomb)
