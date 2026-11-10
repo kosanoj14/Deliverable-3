@@ -9,3 +9,4 @@ Compared to previous deliverables, we relied less on AI this week. We were able 
 
 Video link:
 https://nmbu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b35e88df-26c2-4aeb-976e-b4fe00ae8046
+
