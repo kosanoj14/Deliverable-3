@@ -21,7 +21,7 @@ class Battle:
             return self.enemy.name
 
         print(f"{self.hero.name} won!!!")
-        return self.hero.name
+        
 
 
 enemy = Warrior("Jon", weapon=potato_bomb)
