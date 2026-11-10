@@ -41,14 +41,14 @@ class Mage(Character):
 
     def attack(self, target: Character) -> None:
         """Attacks target and deals double damage if mage has more than 10 mana"""
-        base_damage = self.calculate_damage()
         
         if self._mana >= 10:
             self._mana -= 10
-            target.take_damage(base_damage * 2)
+            magical_damage = self.damage * 2
+            target.take_damage(magical_damage)
         else:
             self._mana = min(self._mana + 5, self.max_mana)
-            target.take_damage(base_damage)
+            super().attack(target)
 
     def __repr__(self) -> str:
         """Returns class info formatted"""

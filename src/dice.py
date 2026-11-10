@@ -5,7 +5,7 @@ class Dice:
     """Bulding av dice generator, that randomly roll av dice."""
 
 
-    def __init__(self, sides=6):
+    def __init__(self, sides: int = 6) -> None:
         """The default is 6 sides for det dice, but the player can choose.
         It must be at least 2"""
         if sides < 2:
