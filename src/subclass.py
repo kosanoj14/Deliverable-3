@@ -4,69 +4,57 @@
 # Turid Torheim, NMBU, 2026
 
 from character import Character
+from item import Weapon
 
 
-class warrior(Character):
+class Warrior(Character):
     """Represents the warrior subclass in the game"""
-    def __init__(self, armour : int = 5) -> None:
-        """
-        Initialise the subclass
-        
-        Args:
-            Armour (int): Reduces the damage taken (default = 5)
-        """
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None, armour: int = 5) -> None:
+        """Initialise the warrior with superclass attributes + armour"""
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
         self._armour = armour
 
-    def take_damage(self, damage) -> None:
-        """Makes the character take damage and accounts for armour"""
-        if self.weapon is not None:
-            damage = self.weapon.roll_damage()
-        else:
-            damage = self.damage
-        
-        self._hp -= damage - self.armour
-        self._hp = max(self._hp, 0)
+    def take_damage(self, damage: int) -> None:
+        """Reduces incoming damage by armour value before applying it"""
+        effective_damage = max(damage - self.armour, 0)
+        super().take_damage(effective_damage)
 
     def class_text(self) -> str:
-        """Writes the class info"""
-        sc_txt = "Subclass: Warrior. "
-        Class_txt = super().__str__()
-        return sc_txt + Class_txt
- 
+        """Returns class info formatted"""
+        return f"Subclass: Warrior. {super().__str__()}"
+
     @property
     def armour(self) -> int:
-        """Makes the armour into a property so it is read-only"""
+        """Makes armour read-only"""
         return self._armour
 
-class mage(Character):
-    """Represents the mage subclass in the game"""
-    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, max_mana : int = 30) -> None:
-        """
-        Initialise the subclass
 
-        Args:
-            Mana_max (int): Creates the mana resurce, which the mage uses to cast spells (default = 30)
-        """
-        super().__init__(name=name, hp_max=hp_max, damage=damage)
+class Mage(Character):
+    """Represents the mage subclass in the game"""
+
+    def __init__(self, name: str, hp_max: int = 100, damage: int = 10, weapon: Weapon | None = None, max_mana: int = 30) -> None:
+        """Initialise the mage with superclass attributes + mana"""
+        super().__init__(name=name, hp_max=hp_max, damage=damage, weapon=weapon)
         self._mana = max_mana
         self.max_mana = max_mana
 
-    def attack(self, target) -> None:
-        """Attacks the target and does double damage if the mage har more than 10 mana"""
-        if self._mana > 10:
+    def attack(self, target: Character) -> None:
+        """Attacks target and deals double damage if mage has more than 10 mana"""
+        base_damage = self.calculate_damage()
+        
+        if self._mana >= 10:
             self._mana -= 10
-            target.take_damage(self.damage * 2)
+            target.take_damage(base_damage * 2)
         else:
-            target.take_damage(self.damage)
-            self._mana += 5
+            self._mana = min(self._mana + 5, self.max_mana)
+            target.take_damage(base_damage)
 
     def class_text(self) -> str:
-            """Writes the class info"""
-            sc_txt = "Subclass: Mage. "
-            Class_txt = super().__str__()
-            return sc_txt + Class_txt
+        """Returns class info formatted"""
+        return f"Subclass: Mage. {super().__str__()}"
 
-
-
-
-
+    @property
+    def mana(self) -> int:
+        """Makes current mana read-only"""
+        return self._mana
