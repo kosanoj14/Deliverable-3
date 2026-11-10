@@ -19,10 +19,3 @@ class Battle:
         winner = self.hero if self.hero.is_alive else self.enemy
         print(f"{winner.name} won the battle!!!")
         return winner.name
-
-
-enemy = Warrior("Jon", weapon=potato_bomb)
-hero = Mage("Jonas")
-
-battle = Battle(hero, enemy)
-battle.simulate_battle()
